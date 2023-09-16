@@ -2,3 +2,4 @@
 .xml
 .jpg
 /yolov5*
+/venv*
