@@ -22,38 +22,46 @@ https://github.com/ultralytics/yolov5/issues/36
 '''
 
 import torch
-# from IPython.display import Image
+from IPython.display import Image
 # import os 
 # import random
 # import shutil
 # from sklearn.model_selection import train_test_split
-# from PIL import Image, ImageDraw
-# import numpy as np
+from PIL import Image, ImageDraw
+import numpy as np
+import pandas as pd
 # import matplotlib.pyplot as plt
 
-file = "best_model.pt"
+file = "ML/best_model.pt"
 # model = your_model()
-model = torch.hub.load('data/yolov5.py', 'yolov5s', device='cpu')
-model.load_state_dict(torch.load(file))
+#don't forget to install pip ultralytics!
+model = torch.hub.load('ultralytics/yolov5', 'custom', path=file)  # local model
+
+
+#  model.load_state_dict(torch.load(file))
+
 
 # Function to preprocess the image before feeding it to the model
-def preprocess_image(image_path):
-    img = Image.open(image_path).convert("RGB")
-    img = img.resize((224, 224))  # Resize to the model's expected input size
-    img = np.array(img).astype(np.float32) / 255.0  # Convert to a NumPy array and normalize
-    img = np.transpose(img, (2, 0, 1))  # Transpose the image to (channels, height, width)
-    img = np.expand_dims(img, axis=0)  # Add a batch dimension
-    return torch.tensor(img)
+# def preprocess_image(image_path):
+    # img = Image.open(image_path).convert("RGB")
+    # img = img.resize((224, 224))  # Resize to the model's expected input size
+    # img = np.array(img).astype(np.float32) / 255.0  # Convert to a NumPy array and normalize
+    # img = np.transpose(img, (2, 0, 1))  # Transpose the image to (channels, height, width)
+    # img = np.expand_dims(img, axis=0)  # Add a batch dimension
+    # return torch.tensor(img)
 
 
 # Load the image and preprocess it
-image_path = "test_infer.jpg"
-input_image = preprocess_image(image_path)
+image_path = "ML/test_infer.jpg"
+# the preprocessing is NOT useful.
+# input_image = preprocess_image(image_path)
 
 # Run the model
-output = model(input_image)
+output = model(image_path)
 
 print(output)
+
+print(output.pandas().xyxy[0])  # Pandas DataFrame
 
 # print('torch %s %s' % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else 'CPU'))
 
