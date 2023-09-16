@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /data*
+=======
+/ML/data*
+>>>>>>> be3b939 (new changes)
 .xml
 .jpg
 /yolov5*
