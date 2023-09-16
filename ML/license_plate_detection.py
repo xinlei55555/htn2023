@@ -44,6 +44,7 @@ def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/best_
     output = model(image_path)
     answer=output.pandas().xyxy[0]
     answer=list(answer.iloc[0])
+    print(output.pandas().xyxy[0])  # Pandas DataFrame
     print(answer)
     return answer
     # # answer.iloc[0]
@@ -52,7 +53,6 @@ def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/best_
 
     # print("height = ", height)
 
-    # print(output.pandas().xyxy[0])  # Pandas DataFrame
 
 
 return_height_plate()
