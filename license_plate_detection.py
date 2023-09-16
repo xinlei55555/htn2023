@@ -15,20 +15,45 @@ Yolo V5 repository
 
 #command to run to run the yolo algorithm
 python detect.py --weights runs/train/yolo_road_det/weights/best.pt --img 416 --conf 0.4 --source ../test_infer.jpg
+
+
+running the yolo algorithm in a file
+https://github.com/ultralytics/yolov5/issues/36
 '''
 
 import torch
-from IPython.display import Image
-import os 
-import random
-import shutil
-from sklearn.model_selection import train_test_split
-from PIL import Image, ImageDraw
-import numpy as np
-import matplotlib.pyplot as plt
+# from IPython.display import Image
+# import os 
+# import random
+# import shutil
+# from sklearn.model_selection import train_test_split
+# from PIL import Image, ImageDraw
+# import numpy as np
+# import matplotlib.pyplot as plt
+
+file = "best_model.pt"
+# model = your_model()
+model = torch.hub.load('data/yolov5.py', 'yolov5s', device='cpu')
+model.load_state_dict(torch.load(file))
+
+# Function to preprocess the image before feeding it to the model
+def preprocess_image(image_path):
+    img = Image.open(image_path).convert("RGB")
+    img = img.resize((224, 224))  # Resize to the model's expected input size
+    img = np.array(img).astype(np.float32) / 255.0  # Convert to a NumPy array and normalize
+    img = np.transpose(img, (2, 0, 1))  # Transpose the image to (channels, height, width)
+    img = np.expand_dims(img, axis=0)  # Add a batch dimension
+    return torch.tensor(img)
 
 
+# Load the image and preprocess it
+image_path = "test_infer.jpg"
+input_image = preprocess_image(image_path)
 
+# Run the model
+output = model(input_image)
+
+print(output)
 
 # print('torch %s %s' % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else 'CPU'))
 
