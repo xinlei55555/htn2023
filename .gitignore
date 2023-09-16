@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-/data*
-=======
 /ML/data*
->>>>>>> be3b939 (new changes)
+/ML/Yolo_and_more
 .xml
 .jpg
 /yolov5*
