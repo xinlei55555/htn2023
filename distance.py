@@ -1,5 +1,6 @@
 import math
-def get_distance(top_left, top_right, bottom_left, bottom_right):
+def get_distance(coordinates):
+    """
     #licence plate centered about the origin
     n_top_left = ((top_left[0]-top_right[0]) / 2, (bottom_left[1]-top_left[1]) / 2) 
     n_top_right = ((top_right[0]-top_left[0]) / 2, (bottom_right[1]-top_right[1]) / 2)
@@ -22,6 +23,8 @@ def get_distance(top_left, top_right, bottom_left, bottom_right):
     left_height = math.sqrt((o_top_left[0]-o_bottom_left[0])**2 + (o_top_left[1]-o_bottom_left[1])**2)
     right_height = math.sqrt((o_top_right[0]-o_bottom_right[0])**2 + (o_top_right[1]-o_bottom_right[1])**2)
     height = (left_height + right_height) / 2
+    """
+    height = (coordinates[3] - coordinates[1]) * (3465 / coordinates[4])
 
     #Using regressed values to find distance
     a1 = 2.02885
