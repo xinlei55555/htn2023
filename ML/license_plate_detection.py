@@ -19,6 +19,8 @@ python detect.py --weights runs/train/yolo_road_det/weights/best.pt --img 416 --
 
 running the yolo algorithm in a file
 https://github.com/ultralytics/yolov5/issues/36
+https://docs.ultralytics.com/yolov5/tutorials/pytorch_hub_model_loading/#before-you-start
+
 '''
 
 import torch
@@ -26,13 +28,14 @@ from IPython.display import Image
 # import os 
 # import random
 # import shutil
+ 
 # from sklearn.model_selection import train_test_split
 from PIL import Image, ImageDraw
 import numpy as np
 import pandas as pd
 # import matplotlib.pyplot as plt
 
-def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/license_best_model.pt"):
+def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/license_best_model.pt", resolution = [1080, 720]):
     file = model_path
     # model = your_model()
     #don't forget to install pip ultralytics!
@@ -40,12 +43,13 @@ def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/licen
     # the preprocessing is NOT useful.
     # input_image = preprocess_image(image_path)
     # Run the model
+
     output = model(image_path)
     answer=output.pandas().xyxy[0]
     answer=list(answer.iloc[0])
     print(output.pandas().xyxy[0])  # Pandas DataFrame
     print(answer)
-    return answer
+    return answer, resolution
     # # answer.iloc[0]
     # print(answer.iloc[0])   
     # height = answer['ymax']-answer['ymin']
@@ -55,6 +59,9 @@ def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/licen
 
 
 return_height_plate()
+
+
+
 
     # print('torch %s %s' % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else 'CPU'))
 
