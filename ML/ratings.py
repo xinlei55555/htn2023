@@ -1,4 +1,5 @@
 import math
+from distance import *
 
 KERNAL_SIZE = 3
 
@@ -9,7 +10,7 @@ def get_data(file):
         positions.append((float(temp[0]), float(temp[1])))
     return positions
 
-def get_changes(KERNAL_SIZE):
+def get_changes(KERNAL_SIZE, info):
     positions = get_data('C:\Krish\Coding\HTN 23\htn2023\street1.csv')
     velocity = []
     for pos in range(0, len(positions) - KERNAL_SIZE, KERNAL_SIZE):
@@ -30,7 +31,13 @@ def get_changes(KERNAL_SIZE):
     
     return real_acceleration
 
-def calculate_change(info):
+def calculate_rating(info, ml_info):
     acceleration = get_changes(KERNAL_SIZE)
+    score = 0
     for t in range(0, len(acceleration)):
-        print(acceleration[t])
+        if ml_info[1] == 0:
+            rating -= ((acceleration[t]) ** 2) - 1
+        if ml_info[1] == 1:
+            rating -= -(10/(acceleration[t]+1)) - 2
+        if ml_info[0] != 0:
+            rating -= ((acceleration[t]/4) ** 2) * max((get_distance(ml_info[0])/5) - (3/5), 0)
