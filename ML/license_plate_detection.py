@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 # import matplotlib.pyplot as plt
 
-def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/best_model.pt"):
+def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/license_best_model.pt"):
     file = model_path
     # model = your_model()
     #don't forget to install pip ultralytics!
