@@ -39,7 +39,6 @@ def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/best_
     model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path) 
     # the preprocessing is NOT useful.
     # input_image = preprocess_image(image_path)
-
     # Run the model
     output = model(image_path)
     answer=output.pandas().xyxy[0]
