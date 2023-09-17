@@ -10,8 +10,10 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 
-cap = cv2.VideoCapture(1)
+from ML.license_plate_detection import return_height_plate
+from ML.traffic_light import traffic_light
 
+cap = cv2.VideoCapture(1)
 st.title('Drive Sense  :car:')
 
 def write_bytesio_to_file(filename, bytesio):
@@ -23,6 +25,18 @@ def write_bytesio_to_file(filename, bytesio):
     with open(filename, "wb") as outfile:
         # Copy the BytesIO stream to the output file
         outfile.write(bytesio.getbuffer())
+
+def check(file_path = 'temporary_image/current_frame.jpg'):
+    y_height = return_height_plate(file_path)
+    traffic_list = traffic_light(file_path)
+
+    #return max of the lights
+    for i in range(-1, 4, -1):
+        if i in (traffic_list): 
+            check = i
+    
+    
+
 
 def main():
     st.title("Anomaly Detection")
@@ -62,7 +76,9 @@ def main():
                 #SAVING frame into an image jpg file
                 cv2.imwrite(f'temporary_image/current_frame{cur_frame}.jpg', frame )
 
-                
+                #send to [light, height_plate]
+                #safety (boolean, either safe or not)
+                safety = check(f'temporary_image/current_frame{cur_frame}.jpg')
 
             cur_frame += 1
 
