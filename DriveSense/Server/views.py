@@ -63,4 +63,11 @@ def login(request):
 
 
 def index(request):
-    return 0
+    return JsonResponse({"msg":"Hello World!"})
+
+
+def gps(request):
+    if request.method == 'POST':
+        content = json.loads(request.content)
+        
+
