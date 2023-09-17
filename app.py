@@ -12,9 +12,10 @@ from PIL import Image
 
 from ML.license_plate_detection import return_height_plate
 from ML.traffic_light import traffic_light
+from ML.ratings import calculate_change
 
 cap = cv2.VideoCapture(1)
-st.title('Drive Sense  :car:')
+st.title('Drive Sense  :car: 💥')
 
 def write_bytesio_to_file(filename, bytesio):
     """
@@ -30,13 +31,16 @@ def check(file_path = 'temporary_image/current_frame.jpg'):
     y_height = return_height_plate(file_path)
     traffic_list = traffic_light(file_path)
 
-    #return max of the lights
-    for i in range(-1, 4, -1):
+    #return max of the lights, 2 is red, 1 is yellow, 0 is green, -1 = no light
+    check = -1
+    for i in range(2, -2, -1):
         if i in (traffic_list): 
             check = i
-    
-    
 
+    #danger is a boolean 
+    danger, danger_message = calculate_change(y_height = y_height, color = check)
+    return danger, message
+    
 
 def main():
     st.title("Anomaly Detection")
@@ -77,8 +81,13 @@ def main():
                 cv2.imwrite(f'temporary_image/current_frame{cur_frame}.jpg', frame )
 
                 #send to [light, height_plate]
-                #safety (boolean, either safe or not)
-                safety = check(f'temporary_image/current_frame{cur_frame}.jpg')
+                #danger (boolean, either safe or not)
+                danger, danger_message = check(f'temporary_image/current_frame{cur_frame}.jpg')
+
+                if danger:
+                    st.title('Drive NonSense Detected  !!! :car:  💥\n', danger_message)
+
+                    
 
             cur_frame += 1
 
