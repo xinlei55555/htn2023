@@ -63,7 +63,7 @@ def return_height_plate(image_path = "ML/test_lights_2.jpg", model_path = "ML/li
 
 
 
-# return_height_plate()
+return_height_plate()
 
 
 

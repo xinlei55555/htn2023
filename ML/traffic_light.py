@@ -18,7 +18,7 @@ def traffic_light(image_path = "ML/test_lights.jpg", model_path = "ML/feux_de_ci
     #this is somethow bad# output = model(image_path)
 
     #each bounding box is the xywh:[the number of arrays in it]
-    output2 = model.predict(image_path, imgsz=600, conf=0.10 ,show=True)  #save=True) ==> this saves the image with the box.
+    output2 = model.predict(image_path, imgsz=600, conf=0.10 ,show=True)#, save=True) # ==> this saves the image with the box.
     # output3=model.predict(image_path)
 
     for result in output2:

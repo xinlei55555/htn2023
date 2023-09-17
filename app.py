@@ -12,7 +12,8 @@ from PIL import Image
 
 from ML.license_plate_detection import return_height_plate
 from ML.traffic_light import traffic_light
-from ML.ratings import calculate_change
+from ML.ratings import calculate_rating
+# from ML.ratings import distance
 
 cap = cv2.VideoCapture(1)
 st.title('Drive Sense  :car: 💥')
@@ -31,6 +32,9 @@ def check(file_path = 'temporary_image/current_frame.jpg'):
     y_height = return_height_plate(file_path)
     traffic_list = traffic_light(file_path)
 
+    print("Height of the Plate:", y_height, "\n Current Traffic Light list: ", traffic_list)
+
+
     #return max of the lights, 2 is red, 1 is yellow, 0 is green, -1 = no light
     check = -1
     for i in range(2, -2, -1):
@@ -38,11 +42,22 @@ def check(file_path = 'temporary_image/current_frame.jpg'):
             check = i
 
     # #danger is a boolean 
-    danger_message = "No Danger"
-    danger=True
+    # danger_message = "No Danger"
+    # danger=True
 
     #to uncomment when krish is done
-    # danger, danger_message = calculate_change(y_height = y_height, color = check)
+    
+    rating = calculate_rating([y_height, check])
+    print("RATING Is ", rating)
+    if rating>-30:
+        danger = False 
+    else: 
+        danger = True
+
+    if danger == True: 
+        danger_message="Beware! A dangerous behavior has been observed"
+    else :
+        danger_message="All good until now!"
     return danger, danger_message
     
 
@@ -88,8 +103,8 @@ def main():
                 #danger (boolean, either safe or not)
                 danger, danger_message = check(f'temporary_image/current_frame{cur_frame}.jpg')
 
-                if danger:
-                    st.title('Drive NonSense Detected  !!! :car:  💥\n', danger_message)
+                if danger == True:
+                    st.title(danger_message)
 
                     
 
