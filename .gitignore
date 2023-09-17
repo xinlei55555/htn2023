@@ -6,3 +6,7 @@
 .jpg
 /yolov5*
 /venv*
+/runs
+/runs_traffic_light
+temporary_image
+temporary_vid
