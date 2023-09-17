@@ -1,0 +1,7 @@
+1. COhere
+2. login page
+3. mediapipe and object detection
+4. algorithm
+5. testing everything out.
+6. presentation:
+7. connect backend and frontend

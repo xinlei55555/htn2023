@@ -9,6 +9,7 @@ from ultralytics import YOLO
 from PIL import Image, ImageDraw
 import numpy as np
 import pandas as pd
+
 def traffic_light(image_path = "ML/test_lights.jpg", model_path = "ML/feux_de_circulation.pt", resolution = [800, 600]) -> bool:
     file = model_path
     model = YOLO(model_path)
