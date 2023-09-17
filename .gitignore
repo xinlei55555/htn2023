@@ -1,7 +1,6 @@
-ML/data
-/data
-/ML/data
-/ML/Yolo_and_more
+/ML/data*
+/data*
+/ML/data*
 .xml
 .jpg
 /yolov5*
