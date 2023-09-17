@@ -52,7 +52,7 @@ def login(request):
         content = json.loads(request.content)
         if Users.objects.filter(username=content['username']):
             if Users.objects.filter(username=content['username']).filter(password=content['password']):
-                return 200
+                
 
 
 @login_required
