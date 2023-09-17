@@ -35,7 +35,7 @@ import numpy as np
 import pandas as pd
 # import matplotlib.pyplot as plt
 
-def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/license_best_model.pt", resolution = [1080, 720]):
+def return_height_plate(image_path = "ML/test_lights_2.jpg", model_path = "ML/license_best_model.pt", resolution = [1080, 720]):
     file = model_path
     # model = your_model()
     #don't forget to install pip ultralytics!
@@ -46,19 +46,24 @@ def return_height_plate(image_path = "ML/test_infer.jpg", model_path = "ML/licen
 
     output = model(image_path)
     answer=output.pandas().xyxy[0]
-    answer=list(answer.iloc[0])
-    print(output.pandas().xyxy[0])  # Pandas DataFrame
-    print(answer)
-    return answer, resolution
+    # print(output.pandas().xyxy[0])  # Pandas DataFrame
+    # print(answer)
+    # return answer, resolution
     # # answer.iloc[0]
-    # print(answer.iloc[0])   
-    # height = answer['ymax']-answer['ymin']
+    # print(answer.iloc[0]) 
+    try :  
+        answer=list(answer.iloc[0])
+        height = answer[3]-answer[1]
+    except IndexError:
+        #didn't find any plates:
+        height=0
 
-    # print("height = ", height)
+    print(answer)
+    print("height = ", height)
 
 
 
-return_height_plate()
+# return_height_plate()
 
 
 

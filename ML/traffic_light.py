@@ -33,7 +33,9 @@ def traffic_light(image_path = "ML/test_lights.jpg", model_path = "ML/feux_de_ci
     # print(list(boxes.cls))
 
     #return list of floats.
-    return [float(x) for x in boxes.cls]
+    answer = [float(x) for x in boxes.cls]
+    print(answer)
+    return answer
 
 
 
@@ -56,7 +58,7 @@ def traffic_light(image_path = "ML/test_lights.jpg", model_path = "ML/feux_de_ci
 
 
 
-print(traffic_light())
+# print(traffic_light())
 # traffic_light()
 
 

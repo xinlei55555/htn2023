@@ -37,9 +37,13 @@ def check(file_path = 'temporary_image/current_frame.jpg'):
         if i in (traffic_list): 
             check = i
 
-    #danger is a boolean 
-    danger, danger_message = calculate_change(y_height = y_height, color = check)
-    return danger, message
+    # #danger is a boolean 
+    danger_message = "No Danger"
+    danger=True
+
+    #to uncomment when krish is done
+    # danger, danger_message = calculate_change(y_height = y_height, color = check)
+    return danger, danger_message
     
 
 def main():
