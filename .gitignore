@@ -1,4 +1,6 @@
-/ML/data*
+ML/data
+/data
+/ML/data
 /ML/Yolo_and_more
 .xml
 .jpg
