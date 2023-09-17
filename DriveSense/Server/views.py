@@ -45,16 +45,22 @@ def create_cookies(view):
         return view(request)
     return updated_view
 
-@not_logged_in_required
-@create_cookies
+
 def login(request):
     if request.method == 'POST':
         content = json.loads(request.content)
         if Users.objects.filter(username=content['username']):
             if Users.objects.filter(username=content['username']).filter(password=content['password']):
-                
+                data = {}
+                average = 0
+                for entry in History.objects.filter(user=Users.objects.get(username=content['username'])):
+                    average += entry.score
+                average /= len(History.objects.filter(user=Users.objects.get(username=content['username'])))
+                data['score'] = average
+                data['name'] = Users.objects.get(userame=content['username'])
+                return JsonResponse(data)
+        return 0
 
 
-@login_required
 def index(request):
     return 0
